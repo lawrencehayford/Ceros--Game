@@ -1,3 +1,3 @@
-import Game from "./gameFacade";
-let game = new Game();
+import GameFacade from "./gameFacade";
+let game = new GameFacade();
 game.startGame();

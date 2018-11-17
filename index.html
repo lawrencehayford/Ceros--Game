@@ -22,14 +22,14 @@
     />
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </head>
-  <body class="w3-theme-l4">
+  <body  class="body" id="body">
     <div class="BringFront">
       <div class="w3-bar w3-large w3-theme-d4">
         <a href="#" class="w3-bar-item w3-button"
           ><i class="fa fa-codiepie"></i
         ></a>
         <span class="w3-bar-item">Rhino-Ski</span>
-        <span class="w3-bar-item">Distance :<span id="distance"></span></span>
+        <span class="w3-bar-item">Distance : <span id="distance"></span></span>
         <span class="w3-bar-item"
           >Speed : <span id="speed"></span>
         </span>
@@ -37,7 +37,7 @@
       </div>
     </div>
     <center>
-      <div id="pause"><h1>Click Down Key To Start</h1></div>
+      <div id="pause" ></div>
     </center>
    
     <!----------game over modal------------->
@@ -51,8 +51,10 @@
           <div class="modal-body">
             <center>
             <p><h1>Game Over. You Lose</h1></p>
-            <br/><br/><br/>
-            <i class="fa fa-frown-o" style='font-size: 50px'></i
+            <br/>
+            <h1>Your score : <span id="score"></span> </h1>
+            <br/>
+            <i class="fa fa-frown-o" style='font-size: 50px;color:red'></i
               ><br/><br/><br/>
             <button type="button" class="btn btn-primary" onclick="window.location.reload()" >Retry</button>
               </center>

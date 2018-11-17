@@ -24,13 +24,14 @@ export default class Board extends classes(BaseAssets, Controls) {
     /*
      *This function checks if Skier Speed not more that Max Skier Speed
      */
+    document.body.style.backgroundColor = this.speedColor;
     this.skierSpeed < this.maxSkierSpeed ? (this.skierSpeed += 1) : null;
   }
   pauseGame() {
     /*
      *This function displays on screen that game was paused
      */
-    document.getElementById("pause").innerHTML = "<h2>Game Is Paused</h2>";
+    document.getElementById("pause").innerHTML = this.pauseNotification;
     this.skierDirection = 0;
   }
   continueGame() {
@@ -54,6 +55,7 @@ export default class Board extends classes(BaseAssets, Controls) {
       backdrop: "static",
       keyboard: false
     });
+    document.getElementById("score").innerHTML = Math.ceil(this.skierMapY);
     throw "game over";
   }
 }

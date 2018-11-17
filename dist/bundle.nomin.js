@@ -387,6 +387,8 @@ class Assets {
     this.hits = 0;
     this.totalNumberOfHits = 3;
     this.paused = false;
+    this.pauseNotification = "<h2 class='whiteColor'>Game Is Paused</h2>";
+    this.speedColor = "#111619";
   }
   loadAssets() {
     let assetPromises = [];
@@ -683,13 +685,14 @@ class board_Board extends classes(Assets, controls_Controls) {
     /*
      *This function checks if Skier Speed not more that Max Skier Speed
      */
+    document.body.style.backgroundColor = this.speedColor;
     this.skierSpeed < this.maxSkierSpeed ? this.skierSpeed += 1 : null;
   }
   pauseGame() {
     /*
      *This function displays on screen that game was paused
      */
-    document.getElementById("pause").innerHTML = "<h2>Game Is Paused</h2>";
+    document.getElementById("pause").innerHTML = this.pauseNotification;
     this.skierDirection = 0;
   }
   continueGame() {
@@ -713,6 +716,7 @@ class board_Board extends classes(Assets, controls_Controls) {
       backdrop: "static",
       keyboard: false
     });
+    document.getElementById("score").innerHTML = Math.ceil(this.skierMapY);
     throw "game over";
   }
 }
@@ -721,10 +725,18 @@ class board_Board extends classes(Assets, controls_Controls) {
 
 class gameFacade_Gamefacade extends board_Board {
   startGame() {
+    /*
+     * This function calls initGame function to start the game
+     */
     this.initGame();
   }
 
   gameLoop() {
+    /*
+     * This function is recurisive and loops its self throughout
+     * the entire game. it controls the daskboard,skier and even checks
+     * if skier crashed
+     */
     this.paused === true ? this.pauseGame() : this.continueGame();
     this.updateDashbord();
     this.checkSpeedHasUpdated();
@@ -741,6 +753,10 @@ class gameFacade_Gamefacade extends board_Board {
   }
 
   initGame() {
+    /*
+     * This function initializes the Game and setup
+     * handlers and assets
+     */
     this.setupKeyhandler();
     this.loadAssets().then(() => {
       this.placeInitialObstacles();
