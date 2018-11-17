@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Rhino-Ski</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link
+      rel="stylesheet"
+      href="https://www.w3schools.com/lib/w3-theme-blue-grey.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" type="text/css" href="css/game.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </head>
+  <body class="w3-theme-l4">
+    <div class="BringFront">
+      <div class="w3-bar w3-large w3-theme-d4">
+        <a href="#" class="w3-bar-item w3-button"
+          ><i class="fa fa-codiepie"></i
+        ></a>
+        <span class="w3-bar-item">Rhino-Ski</span>
+        <span class="w3-bar-item">Distance :<span id="distance"></span></span>
+        <span class="w3-bar-item"
+          >Speed : <span id="speed"></span>
+        </span>
+        <span class="w3-bar-item">Hits :<span id="hits"></span></span>
+      </div>
+    </div>
+    <center>
+      <div id="pause"><h1>Click Down Key To Start</h1></div>
+    </center>
+   
+    <!----------game over modal------------->
+     <!-- Modal -->
+  <div class="modal fade" id="over" role="dialog">
+      <div class="modal-dialog">
+      
+        <!-- Modal content-->
+        <div class="modal-content">
+          
+          <div class="modal-body">
+            <center>
+            <p><h1>Game Over. You Lose</h1></p>
+            <br/><br/><br/>
+            <i class="fa fa-frown-o" style='font-size: 50px'></i
+              ><br/><br/><br/>
+            <button type="button" class="btn btn-primary" onclick="window.location.reload()" >Retry</button>
+              </center>
+          </div>
+          
+        </div>
+        
+      </div>
+    </div>
+    <!------------------------------------->
+
+
+    <!----------start Game  modal------------->
+     <!-- Modal -->
+  <div class="modal fade" id="startGame" role="dialog">
+      <div class="modal-dialog">
+      
+        <!-- Modal content-->
+        <div class="modal-content">
+          
+          <div class="modal-body">
+            <center>
+            <p><h1>Welcome To Rhino-Ski</h1></p>
+
+            After starting the game, tap arrow key to move. <b>Your have only 3 attempts</b>
+            <br/>Navigate using your arrow keys<br/>
+            <img src="img/controls.png">
+            <br/><br/><br/>
+            <i class="fa fa-codiepie" style='font-size: 50px'></i
+              ><br/><br/><br/>
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Start Game</button>
+              </center>
+          </div>
+          
+        </div>
+        
+      </div>
+      </div>
+    <!------------------------------------->
+
+    <script type="text/javascript" src="dist/bundle.js"></script>
+
+<script>
+   $("#startGame").modal({
+    backdrop: 'static',
+    keyboard: false
+});
+</script>
+  </body>
+</html>

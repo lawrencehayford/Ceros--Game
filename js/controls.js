@@ -1,0 +1,287 @@
+import BaseAssets from "./assets";
+export default class Controls extends BaseAssets {
+  moveSkier() {
+    switch (this.skierDirection) {
+      case 2:
+        this.skierMapX -= Math.round(this.skierSpeed / 1.4142);
+        this.skierMapY += Math.round(this.skierSpeed / 1.4142);
+
+        this.placeNewObstacle(this.skierDirection);
+        break;
+      case 3:
+        this.skierMapY += this.skierSpeed;
+
+        this.placeNewObstacle(this.skierDirection);
+        break;
+      case 4:
+        this.skierMapX += this.skierSpeed / 1.4142;
+        this.skierMapY += this.skierSpeed / 1.4142;
+
+        this.placeNewObstacle(this.skierDirection);
+        break;
+    }
+  }
+
+  getSkierAsset() {
+    let skierAssetName;
+    switch (this.skierDirection) {
+      case 0:
+        skierAssetName = "skierCrash";
+        break;
+      case 1:
+        skierAssetName = "skierLeft";
+        break;
+      case 2:
+        skierAssetName = "skierLeftDown";
+        break;
+      case 3:
+        skierAssetName = "skierDown";
+        break;
+      case 4:
+        skierAssetName = "skierRightDown";
+        break;
+      case 5:
+        skierAssetName = "skierRight";
+        break;
+    }
+
+    return skierAssetName;
+  }
+
+  drawSkier() {
+    let skierAssetName = this.getSkierAsset();
+    let skierImage = this.loadedAssets[skierAssetName];
+    if (skierImage == undefined) {
+      return;
+    }
+    let x = (this.gameWidth - skierImage.width) / 2;
+    let y = (this.gameHeight - skierImage.height) / 2;
+
+    this.ctx.drawImage(skierImage, x, y, skierImage.width, skierImage.height);
+  }
+
+  intersectRect(r1, r2) {
+    return !(
+      r2.left > r1.right ||
+      r2.right < r1.left ||
+      r2.top > r1.bottom ||
+      r2.bottom < r1.top
+    );
+  }
+
+  checkIfSkierHitObstacle() {
+    let skierAssetName = this.getSkierAsset();
+    let skierImage = this.loadedAssets[skierAssetName];
+    if (skierImage == undefined) {
+      return;
+    }
+    let skierRect = {
+      left: this.skierMapX + this.gameWidth / 2,
+      right: this.skierMapX + skierImage.width + this.gameWidth / 2,
+      top: this.skierMapY + skierImage.height - 5 + this.gameHeight / 2,
+      bottom: this.skierMapY + skierImage.height + this.gameHeight / 2
+    };
+
+    let collision = _.find(this.obstacles, obstacle => {
+      let obstacleImage = this.loadedAssets[obstacle.type];
+      let obstacleRect = {
+        left: obstacle.x,
+        right: obstacle.x + obstacleImage.width,
+        top: obstacle.y + obstacleImage.height - 5,
+        bottom: obstacle.y + obstacleImage.height
+      };
+
+      return this.intersectRect(skierRect, obstacleRect);
+    });
+
+    if (collision) {
+      this.skierDirection != 0 ? (this.hits += 1) : null;
+      this.skierDirection = 0;
+    }
+  }
+
+  setupKeyhandler() {
+    $(window).keydown(event => {
+      switch (event.which) {
+        case 37: // left
+          if (this.skierDirection === 1) {
+            this.skierMapX -= this.skierSpeed;
+            this.placeNewObstacle(this.skierDirection);
+          } else {
+            this.skierDirection--;
+          }
+          event.preventDefault();
+          break;
+        case 39: // right
+          if (this.skierDirection === 5) {
+            this.skierMapX += this.skierSpeed;
+            this.placeNewObstacle(this.skierDirection);
+          } else {
+            this.skierDirection++;
+          }
+          event.preventDefault();
+          break;
+        case 38: // up
+          if (this.skierDirection === 1 || this.skierDirection === 5) {
+            this.skierMapY -= this.skierSpeed;
+            this.placeNewObstacle(6);
+          }
+          event.preventDefault();
+          break;
+        case 40: // down
+          this.skierDirection = 3;
+          event.preventDefault();
+          break;
+        case 32: // pause
+          this.paused === false ? (this.paused = true) : (this.paused = false);
+          event.preventDefault();
+          break;
+      }
+    });
+  }
+
+  drawObstacles() {
+    let newObstacles = [];
+    _.each(this.obstacles, obstacle => {
+      let obstacleImage = this.loadedAssets[obstacle.type];
+      let x = obstacle.x - this.skierMapX - obstacleImage.width / 2;
+      let y = obstacle.y - this.skierMapY - obstacleImage.height / 2;
+      if (
+        x < -100 ||
+        x > this.gameWidth + 50 ||
+        y < -100 ||
+        y > this.gameHeight + 50
+      ) {
+        return;
+      }
+
+      this.ctx.drawImage(
+        obstacleImage,
+        x,
+        y,
+        obstacleImage.width,
+        obstacleImage.height
+      );
+      newObstacles.push(obstacle);
+    });
+    this.obstacles = newObstacles;
+  }
+
+  placeInitialObstacles() {
+    let numberObstacles = Math.ceil(
+      _.random(5, 7) * (this.gameWidth / 800) * (this.gameHeight / 500)
+    );
+
+    let minX = -50;
+    let maxX = this.gameWidth + 50;
+    let minY = this.gameHeight / 2 + 100;
+    let maxY = this.gameHeight + 50;
+
+    for (let i = 0; i < numberObstacles; i++) {
+      this.placeRandomObstacle(minX, maxX, minY, maxY);
+    }
+
+    this.obstacles = _.sortBy(this.obstacles, obstacle => {
+      let obstacleImage = this.loadedAssets[obstacle.type];
+      return obstacle.y + obstacleImage.height;
+    });
+  }
+
+  placeNewObstacle(direction) {
+    let shouldPlaceObstacle = _.random(1, 8);
+    if (shouldPlaceObstacle !== 8) {
+      return;
+    }
+
+    let leftEdge = this.skierMapX;
+    let rightEdge = this.skierMapX + this.gameWidth;
+    let topEdge = this.skierMapY;
+    let bottomEdge = this.skierMapY + this.gameHeight;
+
+    switch (direction) {
+      case 1: // left
+        this.placeRandomObstacle(leftEdge - 50, leftEdge, topEdge, bottomEdge);
+        break;
+      case 2: // left down
+        this.placeRandomObstacle(leftEdge - 50, leftEdge, topEdge, bottomEdge);
+        this.placeRandomObstacle(
+          leftEdge,
+          rightEdge,
+          bottomEdge,
+          bottomEdge + 50
+        );
+        break;
+      case 3: // down
+        this.placeRandomObstacle(
+          leftEdge,
+          rightEdge,
+          bottomEdge,
+          bottomEdge + 50
+        );
+        break;
+      case 4: // right down
+        this.placeRandomObstacle(
+          rightEdge,
+          rightEdge + 50,
+          topEdge,
+          bottomEdge
+        );
+        this.placeRandomObstacle(
+          leftEdge,
+          rightEdge,
+          bottomEdge,
+          bottomEdge + 50
+        );
+        break;
+      case 5: // right
+        this.placeRandomObstacle(
+          rightEdge,
+          rightEdge + 50,
+          topEdge,
+          bottomEdge
+        );
+        break;
+      case 6: // up
+        this.placeRandomObstacle(leftEdge, rightEdge, topEdge - 50, topEdge);
+        break;
+    }
+  }
+
+  placeRandomObstacle(minX, maxX, minY, maxY) {
+    let obstacleIndex = _.random(0, this.obstacleTypes.length - 1);
+
+    let position = this.calculateOpenPosition(minX, maxX, minY, maxY);
+
+    this.obstacles.push({
+      type: this.obstacleTypes[obstacleIndex],
+      x: position.x,
+      y: position.y
+    });
+  }
+
+  calculateOpenPosition(minX, maxX, minY, maxY) {
+    let x = _.random(minX, maxX);
+    let y = _.random(minY, maxY);
+
+    let foundCollision = _.find(this.obstacles, obstacle => {
+      return (
+        x > obstacle.x - 50 &&
+        x < obstacle.x + 50 &&
+        y > obstacle.y - 50 &&
+        y < obstacle.y + 50
+      );
+    });
+
+    if (foundCollision) {
+      return this.calculateOpenPosition(minX, maxX, minY, maxY);
+    } else {
+      return {
+        x: x,
+        y: y
+      };
+    }
+  }
+  clearCanvas() {
+    this.ctx.clearRect(0, 0, this.gameWidth, this.gameHeight);
+  }
+}

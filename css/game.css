@@ -1,0 +1,15 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #ccc;
+}
+.speed {
+  width: 150px;
+}
+.canvasTop {
+  margin-top: -430px;
+}
+.BringFront {
+  min-width: 400px;
+}
