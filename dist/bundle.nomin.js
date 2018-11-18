@@ -426,7 +426,7 @@ var assets_default = /*#__PURE__*/__webpack_require__.n(assets);
 class controls_Controls extends assets_default.a {
   moveSkier() {
     /*
-     * This function is reposible for the x and y axis position of
+     * This function is reposible for the x and y axis posiction of
      * the skier. It actually moves the skier on the canvas
      */
     switch (this.skierDirection) {
@@ -777,7 +777,7 @@ class board_Board extends classes(assets_default.a, controls_Controls) {
 class Canvas {
   prepareGameCanvas(Asset) {
     /*
-     * This function prepares the width and height of Canvas
+     * This function prepares the width and height of Canvas.
      */
     Asset.gameWidth = window.innerWidth;
     Asset.gameHeight = window.innerHeight;
@@ -796,7 +796,7 @@ class Canvas {
 // CONCATENATED MODULE: ./js/gameFacade.js
 
 
-let canvas = new Canvas();
+const canvas = new Canvas();
 
 class gameFacade_Gamefacade extends board_Board {
   startGame() {

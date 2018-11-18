@@ -2,7 +2,7 @@ import BaseAssets from "./assets";
 export default class Controls extends BaseAssets {
   moveSkier() {
     /*
-     * This function is reposible for the x and y axis position of
+     * This function is reposible for the x and y axis posiction of
      * the skier. It actually moves the skier on the canvas
      */
     switch (this.skierDirection) {

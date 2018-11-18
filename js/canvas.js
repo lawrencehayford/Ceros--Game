@@ -1,7 +1,7 @@
 export default class Canvas {
   prepareGameCanvas(Asset) {
     /*
-     * This function prepares the width and height of Canvas
+     * This function prepares the width and height of Canvas.
      */
     Asset.gameWidth = window.innerWidth;
     Asset.gameHeight = window.innerHeight;

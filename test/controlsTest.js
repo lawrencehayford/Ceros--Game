@@ -2,7 +2,7 @@ const assert = require("chai").assert;
 let Asset = new require("../js/assets");
 
 mdd = new Asset();
-// console.log(mdd);
+console.log(mdd);
 
 describe("Controls1", () => {
   it("App should return hello", () => {
