@@ -1,5 +1,9 @@
-export default class Assets {
+class Assets {
   constructor() {
+    /*
+     * This constructor initialize all the assets required for the
+     * game to work successfully
+     */
     this.assets = {
       skierCrash: "img/skier_crash.png",
       skierLeft: "img/skier_left.png",
@@ -12,21 +16,11 @@ export default class Assets {
       rock1: "img/rock_1.png",
       rock2: "img/rock_2.png"
     };
-
     this.loadedAssets = {};
     this.obstacleTypes = ["tree", "treeCluster", "rock1", "rock2"];
     this.obstacles = [];
-    this.gameWidth = window.innerWidth;
-    this.gameHeight = window.innerHeight;
-    this.canvas = $("<canvas class='canvasTop'></canvas>")
-      .attr("width", this.gameWidth * window.devicePixelRatio)
-      .attr("height", this.gameHeight * window.devicePixelRatio)
-      .css({
-        width: this.gameWidth + "px",
-        height: this.gameHeight + "px"
-      });
-    $("body").append(this.canvas);
-    this.ctx = this.canvas[0].getContext("2d");
+    this.gameWidth = 0;
+    this.gameHeight = 0;
     this.skierDirection = 5;
     this.skierMapX = 0;
     this.skierMapY = 0;
@@ -37,8 +31,15 @@ export default class Assets {
     this.paused = false;
     this.pauseNotification = "<h2 class='whiteColor'>Game Is Paused</h2>";
     this.speedColor = "#111619";
+    this.canvas;
+    this.ctx;
   }
+
   loadAssets() {
+    /*
+     * This function loads all the assets required for the
+     * game to work successfully
+     */
     let assetPromises = [];
     _.each(this.assets, (asset, assetName) => {
       let assetImage = new Image();
@@ -56,3 +57,4 @@ export default class Assets {
     return $.when.apply($, assetPromises);
   }
 }
+module.exports = Assets;

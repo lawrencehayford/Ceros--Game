@@ -1,4 +1,6 @@
 import GameBoard from "./board";
+import CanvasClass from "./canvas";
+const canvas = new CanvasClass();
 
 export default class Gamefacade extends GameBoard {
   startGame() {
@@ -20,7 +22,7 @@ export default class Gamefacade extends GameBoard {
     this.checkTotalHits();
     this.ctx.save();
     this.ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
-    this.clearCanvas();
+    canvas.clearGameCanvas(this);
     this.moveSkier();
     this.checkIfSkierHitObstacle();
     this.drawSkier();
@@ -34,7 +36,8 @@ export default class Gamefacade extends GameBoard {
      * This function initializes the Game and setup
      * handlers and assets
      */
-    this.setupKeyhandler();
+    canvas.prepareGameCanvas(this);
+    this.setupKeyhandler($(window));
     this.loadAssets().then(() => {
       this.placeInitialObstacles();
       requestAnimationFrame(this.gameLoop.bind(this));

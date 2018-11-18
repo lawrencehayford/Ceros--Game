@@ -1,5 +1,9 @@
 const assert = require("chai").assert;
-//const Controls = require("../js/controls");
+let Asset = new require("../js/assets");
+
+mdd = new Asset();
+// console.log(mdd);
+
 describe("Controls1", () => {
   it("App should return hello", () => {
     assert.equal("hello", "hello");

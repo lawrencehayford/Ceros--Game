@@ -81,11 +81,76 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, exports) {
+
+class Assets {
+  constructor() {
+    /*
+     * This constructor initialize all the assets required for the
+     * game to work successfully
+     */
+    this.assets = {
+      skierCrash: "img/skier_crash.png",
+      skierLeft: "img/skier_left.png",
+      skierLeftDown: "img/skier_left_down.png",
+      skierDown: "img/skier_down.png",
+      skierRightDown: "img/skier_right_down.png",
+      skierRight: "img/skier_right.png",
+      tree: "img/tree_1.png",
+      treeCluster: "img/tree_cluster.png",
+      rock1: "img/rock_1.png",
+      rock2: "img/rock_2.png"
+    };
+    this.loadedAssets = {};
+    this.obstacleTypes = ["tree", "treeCluster", "rock1", "rock2"];
+    this.obstacles = [];
+    this.gameWidth = 0;
+    this.gameHeight = 0;
+    this.skierDirection = 5;
+    this.skierMapX = 0;
+    this.skierMapY = 0;
+    this.skierSpeed = 8;
+    this.maxSkierSpeed = 16;
+    this.hits = 0;
+    this.totalNumberOfHits = 3;
+    this.paused = false;
+    this.pauseNotification = "<h2 class='whiteColor'>Game Is Paused</h2>";
+    this.speedColor = "#111619";
+    this.canvas;
+    this.ctx;
+  }
+
+  loadAssets() {
+    /*
+     * This function loads all the assets required for the
+     * game to work successfully
+     */
+    let assetPromises = [];
+    _.each(this.assets, (asset, assetName) => {
+      let assetImage = new Image();
+      let assetDeferred = new $.Deferred();
+
+      assetImage.onload = () => {
+        assetImage.width /= 2;
+        assetImage.height /= 2;
+        this.loadedAssets[assetName] = assetImage;
+        assetDeferred.resolve();
+      };
+      assetImage.src = asset;
+      assetPromises.push(assetDeferred.promise());
+    });
+    return $.when.apply($, assetPromises);
+  }
+}
+module.exports = Assets;
+
+/***/ }),
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -96,10 +161,10 @@
  * @created 30/03/2017 NZDT
  */
 
-module.exports = __webpack_require__(1);
+module.exports = __webpack_require__(2);
 
 /***/ }),
-/* 1 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -114,7 +179,7 @@ module.exports = __webpack_require__(1);
  * Module dependencies.
  */
 
-const MethodMissing = __webpack_require__(2);
+const MethodMissing = __webpack_require__(3);
 
 /**
  * Main multi-class function.
@@ -173,7 +238,7 @@ function classes(...args) {
 module.exports = classes;
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -188,10 +253,10 @@ module.exports = classes;
  * Module exports.
  */
 
-module.exports = __webpack_require__(3);
+module.exports = __webpack_require__(4);
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -206,7 +271,7 @@ module.exports = __webpack_require__(3);
  * Module dependencies.
  */
 
-const proxy = __webpack_require__(4);
+const proxy = __webpack_require__(5);
 
 /**
  * MethodMissing Class
@@ -251,7 +316,7 @@ class MethodMissing {
 module.exports = MethodMissing;
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -266,7 +331,7 @@ module.exports = MethodMissing;
  * Module dependencies.
  */
 
-const MethodMissingError = __webpack_require__(5);
+const MethodMissingError = __webpack_require__(6);
 
 /**
  * Main proxy handler.
@@ -304,7 +369,7 @@ function proxy(Class, method) {
 module.exports = proxy;
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports) {
 
 /*!
@@ -346,94 +411,48 @@ class MethodMissingError extends Error {
 module.exports = MethodMissingError;
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./js/assets.js
-class Assets {
-  constructor() {
-    this.assets = {
-      skierCrash: "img/skier_crash.png",
-      skierLeft: "img/skier_left.png",
-      skierLeftDown: "img/skier_left_down.png",
-      skierDown: "img/skier_down.png",
-      skierRightDown: "img/skier_right_down.png",
-      skierRight: "img/skier_right.png",
-      tree: "img/tree_1.png",
-      treeCluster: "img/tree_cluster.png",
-      rock1: "img/rock_1.png",
-      rock2: "img/rock_2.png"
-    };
+// EXTERNAL MODULE: ./js/assets.js
+var assets = __webpack_require__(0);
+var assets_default = /*#__PURE__*/__webpack_require__.n(assets);
 
-    this.loadedAssets = {};
-    this.obstacleTypes = ["tree", "treeCluster", "rock1", "rock2"];
-    this.obstacles = [];
-    this.gameWidth = window.innerWidth;
-    this.gameHeight = window.innerHeight;
-    this.canvas = $("<canvas class='canvasTop'></canvas>").attr("width", this.gameWidth * window.devicePixelRatio).attr("height", this.gameHeight * window.devicePixelRatio).css({
-      width: this.gameWidth + "px",
-      height: this.gameHeight + "px"
-    });
-    $("body").append(this.canvas);
-    this.ctx = this.canvas[0].getContext("2d");
-    this.skierDirection = 5;
-    this.skierMapX = 0;
-    this.skierMapY = 0;
-    this.skierSpeed = 8;
-    this.maxSkierSpeed = 16;
-    this.hits = 0;
-    this.totalNumberOfHits = 3;
-    this.paused = false;
-    this.pauseNotification = "<h2 class='whiteColor'>Game Is Paused</h2>";
-    this.speedColor = "#111619";
-  }
-  loadAssets() {
-    let assetPromises = [];
-    _.each(this.assets, (asset, assetName) => {
-      let assetImage = new Image();
-      let assetDeferred = new $.Deferred();
-
-      assetImage.onload = () => {
-        assetImage.width /= 2;
-        assetImage.height /= 2;
-        this.loadedAssets[assetName] = assetImage;
-        assetDeferred.resolve();
-      };
-      assetImage.src = asset;
-      assetPromises.push(assetDeferred.promise());
-    });
-    return $.when.apply($, assetPromises);
-  }
-}
 // CONCATENATED MODULE: ./js/controls.js
 
-class controls_Controls extends Assets {
+class controls_Controls extends assets_default.a {
   moveSkier() {
+    /*
+     * This function is reposible for the x and y axis position of
+     * the skier. It actually moves the skier on the canvas
+     */
     switch (this.skierDirection) {
       case 2:
         this.skierMapX -= Math.round(this.skierSpeed / 1.4142);
         this.skierMapY += Math.round(this.skierSpeed / 1.4142);
-
         this.placeNewObstacle(this.skierDirection);
         break;
       case 3:
         this.skierMapY += this.skierSpeed;
-
         this.placeNewObstacle(this.skierDirection);
         break;
       case 4:
         this.skierMapX += this.skierSpeed / 1.4142;
         this.skierMapY += this.skierSpeed / 1.4142;
-
         this.placeNewObstacle(this.skierDirection);
         break;
     }
   }
 
   getSkierAsset() {
+    /*
+     * This function draws skier image depending on the position
+     * the skier is. if the skier is moving right, the skierRight image
+     * will load up. if the skier crashes, the crash image will load up
+     */
     let skierAssetName;
     switch (this.skierDirection) {
       case 0:
@@ -460,6 +479,10 @@ class controls_Controls extends Assets {
   }
 
   drawSkier() {
+    /*
+     * This function redraws the skier on the canvas depending on
+     * the x and y cordinates
+     */
     let skierAssetName = this.getSkierAsset();
     let skierImage = this.loadedAssets[skierAssetName];
     if (skierImage == undefined) {
@@ -472,15 +495,24 @@ class controls_Controls extends Assets {
   }
 
   intersectRect(r1, r2) {
+    /*
+     * This function takes two  parameters and intersect Rect
+     */
     return !(r2.left > r1.right || r2.right < r1.left || r2.top > r1.bottom || r2.bottom < r1.top);
   }
 
   checkIfSkierHitObstacle() {
+    /*
+     * This function constantly checks if the skier
+     * has  hit an object. if there is a collision, it will
+     * load the skier crash icon, pause the game and also increments Hit count by one
+     */
     let skierAssetName = this.getSkierAsset();
     let skierImage = this.loadedAssets[skierAssetName];
     if (skierImage == undefined) {
       return;
     }
+
     let skierRect = {
       left: this.skierMapX + this.gameWidth / 2,
       right: this.skierMapX + skierImage.width + this.gameWidth / 2,
@@ -506,8 +538,12 @@ class controls_Controls extends Assets {
     }
   }
 
-  setupKeyhandler() {
-    $(window).keydown(event => {
+  setupKeyhandler(jquery) {
+    /*
+     * This function initializes all the keys arrows to be used to play that game.
+     * Key arrows such as Left, Right, Up , Down and Space Bar to Pause the Game
+     */
+    jquery.keydown(event => {
       switch (event.which) {
         case 37:
           // left
@@ -552,6 +588,10 @@ class controls_Controls extends Assets {
   }
 
   drawObstacles() {
+    /*
+     * This function is reposible for drawing the obstacles which the
+     * skier will encounter. Thes obstacles are trees, rocks, etc
+     */
     let newObstacles = [];
     _.each(this.obstacles, obstacle => {
       let obstacleImage = this.loadedAssets[obstacle.type];
@@ -568,6 +608,10 @@ class controls_Controls extends Assets {
   }
 
   placeInitialObstacles() {
+    /*
+     * This function is only called once . it places initial
+     * Obstacles in the game
+     */
     let numberObstacles = Math.ceil(_.random(5, 7) * (this.gameWidth / 800) * (this.gameHeight / 500));
 
     let minX = -50;
@@ -586,6 +630,10 @@ class controls_Controls extends Assets {
   }
 
   placeNewObstacle(direction) {
+    /*
+     * This function places new obstacles to the skier depending
+     * on the skier direction. It takes direction as a parameter
+     */
     let shouldPlaceObstacle = _.random(1, 8);
     if (shouldPlaceObstacle !== 8) {
       return;
@@ -627,6 +675,10 @@ class controls_Controls extends Assets {
   }
 
   placeRandomObstacle(minX, maxX, minY, maxY) {
+    /*
+     * This function is reposible generating random obstacles for
+     * the skier
+     */
     let obstacleIndex = _.random(0, this.obstacleTypes.length - 1);
 
     let position = this.calculateOpenPosition(minX, maxX, minY, maxY);
@@ -639,6 +691,10 @@ class controls_Controls extends Assets {
   }
 
   calculateOpenPosition(minX, maxX, minY, maxY) {
+    /*
+     * This function calculate open position to determin if a
+     * collision has been found or not. it return true of false
+     */
     let x = _.random(minX, maxX);
     let y = _.random(minY, maxY);
 
@@ -655,16 +711,13 @@ class controls_Controls extends Assets {
       };
     }
   }
-  clearCanvas() {
-    this.ctx.clearRect(0, 0, this.gameWidth, this.gameHeight);
-  }
 }
 // CONCATENATED MODULE: ./js/board.js
-const classes = __webpack_require__(0);
+const classes = __webpack_require__(1);
 
 
 
-class board_Board extends classes(Assets, controls_Controls) {
+class board_Board extends classes(assets_default.a, controls_Controls) {
   updateDashbord() {
     /*
      *This methods  updates ths distance , hit and speed to the screen
@@ -720,8 +773,30 @@ class board_Board extends classes(Assets, controls_Controls) {
     throw "game over";
   }
 }
+// CONCATENATED MODULE: ./js/canvas.js
+class Canvas {
+  prepareGameCanvas(Asset) {
+    /*
+     * This function prepares the width and height of Canvas
+     */
+    Asset.gameWidth = window.innerWidth;
+    Asset.gameHeight = window.innerHeight;
+    Asset.canvas = $("<canvas ></canvas>").attr("width", Asset.gameWidth * window.devicePixelRatio).attr("height", Asset.gameHeight * window.devicePixelRatio).css({ width: Asset.gameWidth + "px", height: Asset.gameHeight + "px" });
+    $("body").append(Asset.canvas);
+    Asset.ctx = Asset.canvas[0].getContext("2d");
+  }
+
+  clearGameCanvas(Asset) {
+    /*
+     * This function is responsible for clearing the main canvas
+     */
+    Asset.ctx.clearRect(0, 0, Asset.gameWidth, Asset.gameHeight);
+  }
+}
 // CONCATENATED MODULE: ./js/gameFacade.js
 
+
+let canvas = new Canvas();
 
 class gameFacade_Gamefacade extends board_Board {
   startGame() {
@@ -743,7 +818,7 @@ class gameFacade_Gamefacade extends board_Board {
     this.checkTotalHits();
     this.ctx.save();
     this.ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
-    this.clearCanvas();
+    canvas.clearGameCanvas(this);
     this.moveSkier();
     this.checkIfSkierHitObstacle();
     this.drawSkier();
@@ -757,7 +832,8 @@ class gameFacade_Gamefacade extends board_Board {
      * This function initializes the Game and setup
      * handlers and assets
      */
-    this.setupKeyhandler();
+    canvas.prepareGameCanvas(this);
+    this.setupKeyhandler($(window));
     this.loadAssets().then(() => {
       this.placeInitialObstacles();
       requestAnimationFrame(this.gameLoop.bind(this));
@@ -765,6 +841,7 @@ class gameFacade_Gamefacade extends board_Board {
   }
 }
 // CONCATENATED MODULE: ./js/entry.js
+/** Main Entry to Initialize and start the game **/
 
 let game = new gameFacade_Gamefacade();
 game.startGame();

@@ -1,28 +1,34 @@
 import BaseAssets from "./assets";
 export default class Controls extends BaseAssets {
   moveSkier() {
+    /*
+     * This function is reposible for the x and y axis position of
+     * the skier. It actually moves the skier on the canvas
+     */
     switch (this.skierDirection) {
       case 2:
         this.skierMapX -= Math.round(this.skierSpeed / 1.4142);
         this.skierMapY += Math.round(this.skierSpeed / 1.4142);
-
         this.placeNewObstacle(this.skierDirection);
         break;
       case 3:
         this.skierMapY += this.skierSpeed;
-
         this.placeNewObstacle(this.skierDirection);
         break;
       case 4:
         this.skierMapX += this.skierSpeed / 1.4142;
         this.skierMapY += this.skierSpeed / 1.4142;
-
         this.placeNewObstacle(this.skierDirection);
         break;
     }
   }
 
   getSkierAsset() {
+    /*
+     * This function draws skier image depending on the position
+     * the skier is. if the skier is moving right, the skierRight image
+     * will load up. if the skier crashes, the crash image will load up
+     */
     let skierAssetName;
     switch (this.skierDirection) {
       case 0:
@@ -49,6 +55,10 @@ export default class Controls extends BaseAssets {
   }
 
   drawSkier() {
+    /*
+     * This function redraws the skier on the canvas depending on
+     * the x and y cordinates
+     */
     let skierAssetName = this.getSkierAsset();
     let skierImage = this.loadedAssets[skierAssetName];
     if (skierImage == undefined) {
@@ -61,6 +71,9 @@ export default class Controls extends BaseAssets {
   }
 
   intersectRect(r1, r2) {
+    /*
+     * This function takes two  parameters and intersect Rect
+     */
     return !(
       r2.left > r1.right ||
       r2.right < r1.left ||
@@ -70,11 +83,17 @@ export default class Controls extends BaseAssets {
   }
 
   checkIfSkierHitObstacle() {
+    /*
+     * This function constantly checks if the skier
+     * has  hit an object. if there is a collision, it will
+     * load the skier crash icon, pause the game and also increments Hit count by one
+     */
     let skierAssetName = this.getSkierAsset();
     let skierImage = this.loadedAssets[skierAssetName];
     if (skierImage == undefined) {
       return;
     }
+
     let skierRect = {
       left: this.skierMapX + this.gameWidth / 2,
       right: this.skierMapX + skierImage.width + this.gameWidth / 2,
@@ -100,8 +119,12 @@ export default class Controls extends BaseAssets {
     }
   }
 
-  setupKeyhandler() {
-    $(window).keydown(event => {
+  setupKeyhandler(jquery) {
+    /*
+     * This function initializes all the keys arrows to be used to play that game.
+     * Key arrows such as Left, Right, Up , Down and Space Bar to Pause the Game
+     */
+    jquery.keydown(event => {
       switch (event.which) {
         case 37: // left
           if (this.skierDirection === 1) {
@@ -141,6 +164,10 @@ export default class Controls extends BaseAssets {
   }
 
   drawObstacles() {
+    /*
+     * This function is reposible for drawing the obstacles which the
+     * skier will encounter. Thes obstacles are trees, rocks, etc
+     */
     let newObstacles = [];
     _.each(this.obstacles, obstacle => {
       let obstacleImage = this.loadedAssets[obstacle.type];
@@ -168,6 +195,10 @@ export default class Controls extends BaseAssets {
   }
 
   placeInitialObstacles() {
+    /*
+     * This function is only called once . it places initial
+     * Obstacles in the game
+     */
     let numberObstacles = Math.ceil(
       _.random(5, 7) * (this.gameWidth / 800) * (this.gameHeight / 500)
     );
@@ -188,6 +219,10 @@ export default class Controls extends BaseAssets {
   }
 
   placeNewObstacle(direction) {
+    /*
+     * This function places new obstacles to the skier depending
+     * on the skier direction. It takes direction as a parameter
+     */
     let shouldPlaceObstacle = _.random(1, 8);
     if (shouldPlaceObstacle !== 8) {
       return;
@@ -248,6 +283,10 @@ export default class Controls extends BaseAssets {
   }
 
   placeRandomObstacle(minX, maxX, minY, maxY) {
+    /*
+     * This function is reposible generating random obstacles for
+     * the skier
+     */
     let obstacleIndex = _.random(0, this.obstacleTypes.length - 1);
 
     let position = this.calculateOpenPosition(minX, maxX, minY, maxY);
@@ -260,6 +299,10 @@ export default class Controls extends BaseAssets {
   }
 
   calculateOpenPosition(minX, maxX, minY, maxY) {
+    /*
+     * This function calculate open position to determin if a
+     * collision has been found or not. it return true of false
+     */
     let x = _.random(minX, maxX);
     let y = _.random(minY, maxY);
 
@@ -280,8 +323,5 @@ export default class Controls extends BaseAssets {
         y: y
       };
     }
-  }
-  clearCanvas() {
-    this.ctx.clearRect(0, 0, this.gameWidth, this.gameHeight);
   }
 }

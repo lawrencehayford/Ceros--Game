@@ -7,7 +7,7 @@
     "start": "node web.js",
     "build": "webpack-dev-server --mode development",
     "build:prod": "webpack -p",
-    "test": "mocha || true"
+    "test": "mocha || true "
   },
   "author": "dan.wash@ceros.com",
   "license": "",
@@ -25,7 +25,10 @@
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.6.1",
     "chai": "^4.2.0",
+    "jsdom-global": "^3.0.2",
+    "live-server": "^1.2.0",
     "mocha": "^5.2.0",
+    "mocha-jsdom": "^2.0.0",
     "webpack": "^4.25.1",
     "webpack-cli": "^3.1.2"
   }
