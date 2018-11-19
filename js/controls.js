@@ -1,5 +1,5 @@
-import BaseAssets from "./assets";
-export default class Controls extends BaseAssets {
+const BaseAssets = new require("../js/assets");
+class Controls extends BaseAssets {
   moveSkier() {
     /*
      * This function is reposible for the x and y axis posiction of
@@ -325,3 +325,4 @@ export default class Controls extends BaseAssets {
     }
   }
 }
+module.exports = Controls;

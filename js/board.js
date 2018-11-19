@@ -1,8 +1,8 @@
 const classes = require("extends-classes");
-import BaseAssets from "./assets";
-import Controls from "./controls";
+const BaseAssets = new require("../js/assets");
+const Controls = new require("../js/controls");
 
-export default class Board extends classes(BaseAssets, Controls) {
+class Board extends classes(BaseAssets, Controls) {
   updateDashbord() {
     /*
      *This methods  updates ths distance , hit and speed to the screen
@@ -59,3 +59,4 @@ export default class Board extends classes(BaseAssets, Controls) {
     throw "game over";
   }
 }
+module.exports = Board;

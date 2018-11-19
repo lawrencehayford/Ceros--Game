@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 9);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -153,6 +153,72 @@ module.exports = Assets;
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
+const classes = __webpack_require__(2);
+const BaseAssets = new __webpack_require__(0);
+const Controls = new __webpack_require__(8);
+
+class Board extends classes(BaseAssets, Controls) {
+  updateDashbord() {
+    /*
+     *This methods  updates ths distance , hit and speed to the screen
+     */
+    document.getElementById("distance").innerHTML = Math.ceil(this.skierMapY) + " meters";
+    document.getElementById("speed").innerHTML = this.skierSpeed;
+    document.getElementById("hits").innerHTML = this.hits;
+  }
+
+  checkSpeedHasUpdated() {
+    /*
+     *This methods  checks if speed has reached time for updating.
+     *Speed updates every 5 seconds
+     */
+    this.skierMapY >= 5000 ? this.updateSpeed() : null;
+  }
+  updateSpeed() {
+    /*
+     *This function checks if Skier Speed not more that Max Skier Speed
+     */
+    document.body.style.backgroundColor = this.speedColor;
+    this.skierSpeed < this.maxSkierSpeed ? this.skierSpeed += 1 : null;
+  }
+  pauseGame() {
+    /*
+     *This function displays on screen that game was paused
+     */
+    document.getElementById("pause").innerHTML = this.pauseNotification;
+    this.skierDirection = 0;
+  }
+  continueGame() {
+    /*
+     *This function removes game paused from screen
+     */
+    document.getElementById("pause").innerHTML = "";
+  }
+
+  checkTotalHits() {
+    /*
+     *This function checks total skier hits
+     */
+    this.hits === this.totalNumberOfHits ? this.gameOver() : null;
+  }
+  gameOver() {
+    /*
+     *This function ends the game
+     */
+    $("#over").modal({
+      backdrop: "static",
+      keyboard: false
+    });
+    document.getElementById("score").innerHTML = Math.ceil(this.skierMapY);
+    throw "game over";
+  }
+}
+module.exports = Board;
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
 /*!
  * Extends Classes.
  *
@@ -161,10 +227,10 @@ module.exports = Assets;
  * @created 30/03/2017 NZDT
  */
 
-module.exports = __webpack_require__(2);
+module.exports = __webpack_require__(3);
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -179,7 +245,7 @@ module.exports = __webpack_require__(2);
  * Module dependencies.
  */
 
-const MethodMissing = __webpack_require__(3);
+const MethodMissing = __webpack_require__(4);
 
 /**
  * Main multi-class function.
@@ -238,7 +304,7 @@ function classes(...args) {
 module.exports = classes;
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -253,10 +319,10 @@ module.exports = classes;
  * Module exports.
  */
 
-module.exports = __webpack_require__(4);
+module.exports = __webpack_require__(5);
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -271,7 +337,7 @@ module.exports = __webpack_require__(4);
  * Module dependencies.
  */
 
-const proxy = __webpack_require__(5);
+const proxy = __webpack_require__(6);
 
 /**
  * MethodMissing Class
@@ -316,7 +382,7 @@ class MethodMissing {
 module.exports = MethodMissing;
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -331,7 +397,7 @@ module.exports = MethodMissing;
  * Module dependencies.
  */
 
-const MethodMissingError = __webpack_require__(6);
+const MethodMissingError = __webpack_require__(7);
 
 /**
  * Main proxy handler.
@@ -369,7 +435,7 @@ function proxy(Class, method) {
 module.exports = proxy;
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports) {
 
 /*!
@@ -411,19 +477,11 @@ class MethodMissingError extends Error {
 module.exports = MethodMissingError;
 
 /***/ }),
-/* 7 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-
-// EXTERNAL MODULE: ./js/assets.js
-var assets = __webpack_require__(0);
-var assets_default = /*#__PURE__*/__webpack_require__.n(assets);
-
-// CONCATENATED MODULE: ./js/controls.js
-
-class controls_Controls extends assets_default.a {
+const BaseAssets = new __webpack_require__(0);
+class Controls extends BaseAssets {
   moveSkier() {
     /*
      * This function is reposible for the x and y axis posiction of
@@ -712,67 +770,19 @@ class controls_Controls extends assets_default.a {
     }
   }
 }
-// CONCATENATED MODULE: ./js/board.js
-const classes = __webpack_require__(1);
+module.exports = Controls;
 
+/***/ }),
+/* 9 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
 
-class board_Board extends classes(assets_default.a, controls_Controls) {
-  updateDashbord() {
-    /*
-     *This methods  updates ths distance , hit and speed to the screen
-     */
-    document.getElementById("distance").innerHTML = Math.ceil(this.skierMapY) + " meters";
-    document.getElementById("speed").innerHTML = this.skierSpeed;
-    document.getElementById("hits").innerHTML = this.hits;
-  }
+// EXTERNAL MODULE: ./js/board.js
+var board = __webpack_require__(1);
+var board_default = /*#__PURE__*/__webpack_require__.n(board);
 
-  checkSpeedHasUpdated() {
-    /*
-     *This methods  checks if speed has reached time for updating.
-     *Speed updates every 5 seconds
-     */
-    this.skierMapY >= 5000 ? this.updateSpeed() : null;
-  }
-  updateSpeed() {
-    /*
-     *This function checks if Skier Speed not more that Max Skier Speed
-     */
-    document.body.style.backgroundColor = this.speedColor;
-    this.skierSpeed < this.maxSkierSpeed ? this.skierSpeed += 1 : null;
-  }
-  pauseGame() {
-    /*
-     *This function displays on screen that game was paused
-     */
-    document.getElementById("pause").innerHTML = this.pauseNotification;
-    this.skierDirection = 0;
-  }
-  continueGame() {
-    /*
-     *This function removes game paused from screen
-     */
-    document.getElementById("pause").innerHTML = "";
-  }
-
-  checkTotalHits() {
-    /*
-     *This function checks total skier hits
-     */
-    this.hits === this.totalNumberOfHits ? this.gameOver() : null;
-  }
-  gameOver() {
-    /*
-     *This function ends the game
-     */
-    $("#over").modal({
-      backdrop: "static",
-      keyboard: false
-    });
-    document.getElementById("score").innerHTML = Math.ceil(this.skierMapY);
-    throw "game over";
-  }
-}
 // CONCATENATED MODULE: ./js/canvas.js
 class Canvas {
   prepareGameCanvas(Asset) {
@@ -798,7 +808,7 @@ class Canvas {
 
 const canvas = new Canvas();
 
-class gameFacade_Gamefacade extends board_Board {
+class gameFacade_Gamefacade extends board_default.a {
   startGame() {
     /*
      * This function calls initGame function to start the game
