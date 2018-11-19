@@ -1,4 +1,6 @@
-const BaseAssets = new require("./assets");
+const BaseAssets = require("./assets");
+const _ = require("lodash");
+
 class Controls extends BaseAssets {
   moveSkier() {
     /*

@@ -1,5 +1,5 @@
-const BaseAssets = new require("./assets");
-class Canvas {
+const BaseAssets = require("./assets");
+class Canvas extends BaseAssets {
   prepareGameCanvas() {
     /*
      * This function prepares the width and height of Canvas.

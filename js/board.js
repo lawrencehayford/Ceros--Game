@@ -1,7 +1,7 @@
 const classes = require("extends-classes");
-const BaseAssets = new require("./assets");
-const Controls = new require("./controls");
-const Canvas = new require("./canvas");
+const BaseAssets = require("./assets");
+const Controls = require("./controls");
+const Canvas = require("./canvas");
 
 class Board extends classes(BaseAssets, Controls, Canvas) {
   updateDashbord() {

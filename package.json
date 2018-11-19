@@ -7,7 +7,7 @@
     "start": "node web.js",
     "build": "webpack-dev-server --mode development",
     "build:prod": "webpack -p",
-    "test": "mocha || true "
+    "test": "jest"
   },
   "author": "dan.wash@ceros.com",
   "license": "",
@@ -17,6 +17,7 @@
   "dependencies": {
     "extends-classes": "^1.0.5",
     "http-server": "^0.10.0",
+    "lodash": "^4.17.11",
     "unminified-webpack-plugin": "^2.0.0",
     "webpack-dev-server": "^3.1.10"
   },
@@ -24,11 +25,7 @@
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.6.1",
-    "chai": "^4.2.0",
-    "jsdom-global": "^3.0.2",
-    "live-server": "^1.2.0",
-    "mocha": "^5.2.0",
-    "mocha-jsdom": "^2.0.0",
+    "jest": "^23.6.0",
     "webpack": "^4.25.1",
     "webpack-cli": "^3.1.2"
   }
