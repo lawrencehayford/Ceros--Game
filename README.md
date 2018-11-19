@@ -1,6 +1,8 @@
 # Ceros Ski Game New Features
 
-## Start Game
+## Run Game Live
+
+Visit http://skier.wizbizgh.com/
 
 ![](http://wizbizgh.com/skier_images/img1.png)
 
@@ -40,7 +42,7 @@ Browse http://localhost:5000 to view Game
 
 ## Able To Pause Game
 
-## Able To Reset Game When You Lose;
+## Able To Reset Game When You Lose
 
 ## Dashboard recording distance covered
 
