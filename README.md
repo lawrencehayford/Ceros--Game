@@ -1,6 +1,4 @@
-# Ceros Ski Game
-
-## New Features
+# Ceros Ski Game New Features
 
 ## Start Game
 
@@ -17,6 +15,28 @@
 ## Game Over
 
 ![](http://wizbizgh.com/skier_images/img4.png)
+
+## Running Game
+
+Clone the repository
+
+    git clone https://github.com/lawrencehayford/Ceros--Game.git
+
+Switch to the repo folder
+
+    cd Ceros--Game
+
+Install all dependencies
+
+    npm install
+
+Start Game
+
+    npm start
+
+Browse http://localhost:5000 to view Game
+
+# Strategies For Testing This App
 
 For this challenge, we have included some base code for Ceros Ski, our version of the classic Windows game SkiFree. If
 you've never heard of SkiFree, Google has plenty of examples. Better yet, you can play our version here:
