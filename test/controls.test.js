@@ -2,30 +2,42 @@ const Controls = require("../js/controls");
 
 beforeEach(() => {
   controls = new Controls();
+  controls.skierDirection = 2;
 });
 
 describe("Controls Test", () => {
-  test("Move Skier Test", () => {
-    controls.skierDirection = 2;
-    controls.moveSkier();
-    expect(controls.moveSkier()).toBe(undefined);
+  test("Get Skier Asset", () => {
+    expect(controls.getSkierAsset().length).toBeGreaterThanOrEqual(1);
   });
 
-  // test("Get Skier Asset Test", () => {
-  //   expect(controls.getSkierAsset()).toBe("Hello");
-  // });
+  test("Move Skier Test", () => {
+    expect(controls.moveSkier()).toBeUndefined();
+  });
 
-  // test("Draw Skier Test", () => {
-  //   expect(controls.drawSkier()).toBe("Hello");
-  // });
+  test("Draw Skier Test", () => {
+    expect(controls.drawSkier()).toBeUndefined();
+  });
 
-  // test("Intersect Rec Test", () => {
-  //   expect(controls.drawSkier()).toBe("Hello");
-  // });
+  test("Intersect Rec Test", () => {
+    let obstacleRect1 = {
+      left: 2,
+      right: 7,
+      top: 5,
+      bottom: 10
+    };
 
-  // test("Check If Skier Hit Obstacle Test", () => {
-  //   expect(controls.checkIfSkierHitObstacle()).toBe("Hello");
-  // });
+    let obstacleRect2 = {
+      left: 3,
+      right: 6,
+      top: 8,
+      bottom: 9
+    };
+    expect(controls.intersectRect(obstacleRect1, obstacleRect2)).toBeTruthy();
+  });
+
+  test("Check If Skier Hit Obstacle Test", () => {
+    expect(controls.checkIfSkierHitObstacle()).toBeTruthy();
+  });
 
   //   it("Draw Obstacle Test", () => {
   //     expect(controls.drawObstacles()).toBe("Hello");

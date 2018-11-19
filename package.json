@@ -7,7 +7,7 @@
     "start": "node web.js",
     "build": "webpack-dev-server --mode development",
     "build:prod": "webpack -p",
-    "test": "jest"
+    "test": "jest || mode"
   },
   "author": "dan.wash@ceros.com",
   "license": "",
