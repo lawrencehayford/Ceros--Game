@@ -3,17 +3,17 @@ import GameBoard from "./board";
 export default class Gamefacade extends GameBoard {
   startGame() {
     /*
-     * This function calls initGame function to start the game
-     */
+     This function calls initGame function to start the game
+    */
     this.initGame();
   }
 
   gameLoop() {
     /*
-     * This function is recurisive and loops its self throughout
-     * the entire game. it controls the daskboard,skier and even checks
-     * if skier crashed
-     */
+     This function is recurisive and loops its self throughout
+     the entire game. it controls the daskboard,skier and even checks
+     if skier crashed
+    */
     this.paused === true ? this.pauseGame() : this.continueGame();
     this.updateDashbord();
     this.checkSpeedHasUpdated();
@@ -31,9 +31,9 @@ export default class Gamefacade extends GameBoard {
 
   initGame() {
     /*
-     * This function initializes the Game and setup
-     * handlers and assets
-     */
+     This function initializes the Game and setup
+     handlers and assets
+    */
     this.prepareGameCanvas();
     this.setupKeyhandler($(window));
     this.loadAssets().then(() => {

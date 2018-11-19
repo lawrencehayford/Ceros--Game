@@ -72,8 +72,8 @@ class Controls extends BaseAssets {
 
   intersectRect(r1, r2) {
     /*
-     * This function takes two  parameters and intersect Rect
-     */
+     This function takes two  parameters and intersect Rect
+    */
     return !(
       r2.left > r1.right ||
       r2.right < r1.left ||
@@ -84,10 +84,10 @@ class Controls extends BaseAssets {
 
   checkIfSkierHitObstacle() {
     /*
-     * This function constantly checks if the skier
-     * has  hit an object. if there is a collision, it will
-     * load the skier crash icon, pause the game and also increments Hit count by one
-     */
+     This function constantly checks if the skier
+     has  hit an object. if there is a collision, it will
+     load the skier crash icon, pause the game and also increments Hit count by one
+    */
     let skierAssetName = this.getSkierAsset();
     let skierImage = this.loadedAssets[skierAssetName];
     if (skierImage == undefined) {
@@ -121,9 +121,9 @@ class Controls extends BaseAssets {
 
   setupKeyhandler(jquery) {
     /*
-     * This function initializes all the keys arrows to be used to play that game.
-     * Key arrows such as Left, Right, Up , Down and Space Bar to Pause the Game
-     */
+     This function initializes all the keys arrows to be used to play that game.
+     Key arrows such as Left, Right, Up , Down and Space Bar to Pause the Game
+    */
     jquery.keydown(event => {
       switch (event.which) {
         case 37: // left
@@ -165,9 +165,9 @@ class Controls extends BaseAssets {
 
   drawObstacles() {
     /*
-     * This function is reposible for drawing the obstacles which the
-     * skier will encounter. Thes obstacles are trees, rocks, etc
-     */
+     This function is reposible for drawing the obstacles which the
+     skier will encounter. Thes obstacles are trees, rocks, etc
+    */
     let newObstacles = [];
     _.each(this.obstacles, obstacle => {
       let obstacleImage = this.loadedAssets[obstacle.type];
@@ -196,9 +196,9 @@ class Controls extends BaseAssets {
 
   placeInitialObstacles() {
     /*
-     * This function is only called once . it places initial
-     * Obstacles in the game
-     */
+     This function is only called once . it places initial
+     Obstacles in the game
+    */
     let numberObstacles = Math.ceil(
       _.random(5, 7) * (this.gameWidth / 800) * (this.gameHeight / 500)
     );
@@ -220,9 +220,9 @@ class Controls extends BaseAssets {
 
   placeNewObstacle(direction) {
     /*
-     * This function places new obstacles to the skier depending
-     * on the skier direction. It takes direction as a parameter
-     */
+     This function places new obstacles to the skier depending
+     on the skier direction. It takes direction as a parameter
+    */
     let shouldPlaceObstacle = _.random(1, 8);
     if (shouldPlaceObstacle !== 8) {
       return;
@@ -284,13 +284,11 @@ class Controls extends BaseAssets {
 
   placeRandomObstacle(minX, maxX, minY, maxY) {
     /*
-     * This function is reposible generating random obstacles for
-     * the skier
-     */
+     This function is reposible generating random obstacles for
+     the skier
+    */
     let obstacleIndex = _.random(0, this.obstacleTypes.length - 1);
-
     let position = this.calculateOpenPosition(minX, maxX, minY, maxY);
-
     this.obstacles.push({
       type: this.obstacleTypes[obstacleIndex],
       x: position.x,
@@ -300,12 +298,11 @@ class Controls extends BaseAssets {
 
   calculateOpenPosition(minX, maxX, minY, maxY) {
     /*
-     * This function calculate open position to determin if a
-     * collision has been found or not. it return true of false
-     */
+     This function calculate open position to determin if a
+     collision has been found or not. it return true of false
+    */
     let x = _.random(minX, maxX);
     let y = _.random(minY, maxY);
-
     let foundCollision = _.find(this.obstacles, obstacle => {
       return (
         x > obstacle.x - 50 &&
