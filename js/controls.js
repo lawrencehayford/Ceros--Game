@@ -1,4 +1,4 @@
-const BaseAssets = new require("../js/assets");
+const BaseAssets = new require("./assets");
 class Controls extends BaseAssets {
   moveSkier() {
     /*

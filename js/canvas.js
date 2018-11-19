@@ -1,22 +1,24 @@
-export default class Canvas {
-  prepareGameCanvas(Asset) {
+const BaseAssets = new require("./assets");
+class Canvas {
+  prepareGameCanvas() {
     /*
      * This function prepares the width and height of Canvas.
      */
-    Asset.gameWidth = window.innerWidth;
-    Asset.gameHeight = window.innerHeight;
-    Asset.canvas = $("<canvas ></canvas>")
-      .attr("width", Asset.gameWidth * window.devicePixelRatio)
-      .attr("height", Asset.gameHeight * window.devicePixelRatio)
-      .css({ width: Asset.gameWidth + "px", height: Asset.gameHeight + "px" });
-    $("body").append(Asset.canvas);
-    Asset.ctx = Asset.canvas[0].getContext("2d");
+    this.gameWidth = window.innerWidth;
+    this.gameHeight = window.innerHeight;
+    this.canvas = $("<canvas ></canvas>")
+      .attr("width", this.gameWidth * window.devicePixelRatio)
+      .attr("height", this.gameHeight * window.devicePixelRatio)
+      .css({ width: this.gameWidth + "px", height: this.gameHeight + "px" });
+    $("body").append(this.canvas);
+    this.ctx = this.canvas[0].getContext("2d");
   }
 
-  clearGameCanvas(Asset) {
+  clearGameCanvas() {
     /*
      * This function is responsible for clearing the main canvas
      */
-    Asset.ctx.clearRect(0, 0, Asset.gameWidth, Asset.gameHeight);
+    this.ctx.clearRect(0, 0, this.gameWidth, this.gameHeight);
   }
 }
+module.exports = Canvas;

@@ -1,8 +1,9 @@
 const classes = require("extends-classes");
-const BaseAssets = new require("../js/assets");
-const Controls = new require("../js/controls");
+const BaseAssets = new require("./assets");
+const Controls = new require("./controls");
+const Canvas = new require("./canvas");
 
-class Board extends classes(BaseAssets, Controls) {
+class Board extends classes(BaseAssets, Controls, Canvas) {
   updateDashbord() {
     /*
      *This methods  updates ths distance , hit and speed to the screen

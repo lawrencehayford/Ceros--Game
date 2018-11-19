@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 9);
+/******/ 	return __webpack_require__(__webpack_require__.s = 10);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -156,8 +156,9 @@ module.exports = Assets;
 const classes = __webpack_require__(2);
 const BaseAssets = new __webpack_require__(0);
 const Controls = new __webpack_require__(8);
+const Canvas = new __webpack_require__(9);
 
-class Board extends classes(BaseAssets, Controls) {
+class Board extends classes(BaseAssets, Controls, Canvas) {
   updateDashbord() {
     /*
      *This methods  updates ths distance , hit and speed to the screen
@@ -774,6 +775,32 @@ module.exports = Controls;
 
 /***/ }),
 /* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const BaseAssets = new __webpack_require__(0);
+class Canvas {
+  prepareGameCanvas() {
+    /*
+     * This function prepares the width and height of Canvas.
+     */
+    this.gameWidth = window.innerWidth;
+    this.gameHeight = window.innerHeight;
+    this.canvas = $("<canvas ></canvas>").attr("width", this.gameWidth * window.devicePixelRatio).attr("height", this.gameHeight * window.devicePixelRatio).css({ width: this.gameWidth + "px", height: this.gameHeight + "px" });
+    $("body").append(this.canvas);
+    this.ctx = this.canvas[0].getContext("2d");
+  }
+
+  clearGameCanvas() {
+    /*
+     * This function is responsible for clearing the main canvas
+     */
+    this.ctx.clearRect(0, 0, this.gameWidth, this.gameHeight);
+  }
+}
+module.exports = Canvas;
+
+/***/ }),
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -783,30 +810,8 @@ __webpack_require__.r(__webpack_exports__);
 var board = __webpack_require__(1);
 var board_default = /*#__PURE__*/__webpack_require__.n(board);
 
-// CONCATENATED MODULE: ./js/canvas.js
-class Canvas {
-  prepareGameCanvas(Asset) {
-    /*
-     * This function prepares the width and height of Canvas.
-     */
-    Asset.gameWidth = window.innerWidth;
-    Asset.gameHeight = window.innerHeight;
-    Asset.canvas = $("<canvas ></canvas>").attr("width", Asset.gameWidth * window.devicePixelRatio).attr("height", Asset.gameHeight * window.devicePixelRatio).css({ width: Asset.gameWidth + "px", height: Asset.gameHeight + "px" });
-    $("body").append(Asset.canvas);
-    Asset.ctx = Asset.canvas[0].getContext("2d");
-  }
-
-  clearGameCanvas(Asset) {
-    /*
-     * This function is responsible for clearing the main canvas
-     */
-    Asset.ctx.clearRect(0, 0, Asset.gameWidth, Asset.gameHeight);
-  }
-}
 // CONCATENATED MODULE: ./js/gameFacade.js
 
-
-const canvas = new Canvas();
 
 class gameFacade_Gamefacade extends board_default.a {
   startGame() {
@@ -828,7 +833,7 @@ class gameFacade_Gamefacade extends board_default.a {
     this.checkTotalHits();
     this.ctx.save();
     this.ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
-    canvas.clearGameCanvas(this);
+    this.clearGameCanvas();
     this.moveSkier();
     this.checkIfSkierHitObstacle();
     this.drawSkier();
@@ -842,7 +847,7 @@ class gameFacade_Gamefacade extends board_default.a {
      * This function initializes the Game and setup
      * handlers and assets
      */
-    canvas.prepareGameCanvas(this);
+    this.prepareGameCanvas();
     this.setupKeyhandler($(window));
     this.loadAssets().then(() => {
       this.placeInitialObstacles();
