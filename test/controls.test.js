@@ -36,26 +36,6 @@ describe("Controls Test", () => {
   });
 
   test("Check If Skier Hit Obstacle Test", () => {
-    expect(controls.checkIfSkierHitObstacle()).toBeTruthy();
+    expect(controls.checkIfSkierHitObstacle()).toBeUndefined();
   });
-
-  //   it("Draw Obstacle Test", () => {
-  //     expect(controls.drawObstacles()).toBe("Hello");
-  //   });
-
-  //   it("place Initial Obstacles Test", () => {
-  //     expect(controls.placeInitialObstacles()).toBe("Hello");
-  //   });
-
-  //   it("place New Obstacles Test", () => {
-  //     expect(controls.placeNewObstacle(1));
-  //   });
-
-  //   it("place Random Obstacles Test", () => {
-  //     expect(controls.placeRandomObstacle(1, 2, 3, 4));
-  //   });
-
-  //   it("Calculate Open Position Test", () => {
-  //     expect(controls.calculateOpenPosition(1, 2, 3, 4));
-  //   });
 });
