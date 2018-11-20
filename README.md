@@ -38,6 +38,10 @@ Start Game
 
 Browse http://localhost:5000 to view Game
 
+Run Test Using
+
+    npm run test
+
 # Functionalities
 
 ## Able To Pause Game

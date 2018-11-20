@@ -7,35 +7,34 @@ beforeEach(() => {
 
 describe("Controls Test", () => {
   test("Get Skier Asset", () => {
+    /*
+    if  the skier Asset Lenght is greater than 1 , then an Asset name was returned
+    */
     expect(controls.getSkierAsset().length).toBeGreaterThanOrEqual(1);
   });
 
   test("Move Skier Test", () => {
-    expect(controls.moveSkier()).toBeUndefined();
+    /*
+    if  the skier is moved, the x and Y cordinates wont be the same
+    and this will prove that the function works
+    */
+    let prevSkierMapX = controls.skierMapX;
+    let prevSkierMapY = controls.skierMapY;
+    controls.moveSkier();
+    expect(controls.skierMapX).not.toEqual(prevSkierMapX);
+    expect(controls.skierMapY).not.toEqual(prevSkierMapY);
   });
 
-  test("Draw Skier Test", () => {
-    expect(controls.drawSkier()).toBeUndefined();
+  test("Place Random Obstacles Test", () => {
+    /*
+    if obstacles object is not null, then it means
+    controls.placeRandomObstacle push an item into the obstacle object
+    */
+    controls.placeRandomObstacle(1, 3, 7, 10);
+    expect(controls.obstacles).not.toBeNull();
   });
 
-  test("Intersect Rec Test", () => {
-    let obstacleRect1 = {
-      left: 2,
-      right: 7,
-      top: 5,
-      bottom: 10
-    };
-
-    let obstacleRect2 = {
-      left: 3,
-      right: 6,
-      top: 8,
-      bottom: 9
-    };
-    expect(controls.intersectRect(obstacleRect1, obstacleRect2)).toBeTruthy();
-  });
-
-  test("Check If Skier Hit Obstacle Test", () => {
-    expect(controls.checkIfSkierHitObstacle()).toBeUndefined();
+  test("Calculate Open Position Test", () => {
+    expect(controls.calculateOpenPosition(1, 3, 7, 10)).not.toBeNull();
   });
 });

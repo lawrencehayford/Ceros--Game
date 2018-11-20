@@ -1,4 +1,5 @@
 const _ = require("lodash");
+const $ = require("jquery");
 class Assets {
   constructor() {
     /*

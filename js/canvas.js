@@ -1,4 +1,6 @@
 const BaseAssets = require("./assets");
+const $ = require("jquery");
+
 class Canvas extends BaseAssets {
   prepareGameCanvas() {
     /*
