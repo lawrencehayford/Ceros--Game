@@ -8,8 +8,7 @@ class Board extends classes(BaseAssets, Controls, Canvas) {
     /*
      This methods  updates ths distance , hit and speed to the screen
     */
-    document.getElementById("distance").innerHTML =
-      Math.ceil(this.skierMapY) + " meters";
+    document.getElementById("distance").innerHTML = Math.ceil(this.skierMapY);
     document.getElementById("speed").innerHTML = this.skierSpeed;
     document.getElementById("hits").innerHTML = this.hits;
   }
@@ -33,7 +32,6 @@ class Board extends classes(BaseAssets, Controls, Canvas) {
      This function displays on screen that game was paused
     */
     document.getElementById("pause").innerHTML = this.pauseNotification;
-    this.skierDirection = 0;
   }
   continueGame() {
     /*
@@ -60,4 +58,5 @@ class Board extends classes(BaseAssets, Controls, Canvas) {
     throw "game over";
   }
 }
+
 module.exports = Board;

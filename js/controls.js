@@ -63,9 +63,6 @@ class Controls extends BaseAssets {
      */
     let skierAssetName = this.getSkierAsset();
     let skierImage = this.loadedAssets[skierAssetName];
-    if (skierImage == undefined) {
-      return;
-    }
     let x = (this.gameWidth - skierImage.width) / 2;
     let y = (this.gameHeight - skierImage.height) / 2;
 
@@ -75,6 +72,8 @@ class Controls extends BaseAssets {
   intersectRect(r1, r2) {
     /*
      This function takes two  parameters and intersect Rect
+     @param {object} r1 
+     @param {object} r2 
     */
     return !(
       r2.left > r1.right ||
@@ -133,7 +132,7 @@ class Controls extends BaseAssets {
             this.skierMapX -= this.skierSpeed;
             this.placeNewObstacle(this.skierDirection);
           } else {
-            this.skierDirection--;
+            this.skierDirection > 0 ? this.skierDirection-- : null;
           }
           event.preventDefault();
           break;
@@ -158,10 +157,20 @@ class Controls extends BaseAssets {
           event.preventDefault();
           break;
         case 32: // pause
+          this.skierDirection = 1;
           this.paused === false ? (this.paused = true) : (this.paused = false);
           event.preventDefault();
           break;
       }
+    });
+
+    //setting up automatic moving of skier after start button is clicked
+    $("#startGameBtn").click(() => {
+      $("#startGame").modal("hide");
+      setTimeout(() => {
+        this.skierDirection = 3;
+        $("#loading").html("");
+      }, 3000);
     });
   }
 
@@ -224,6 +233,7 @@ class Controls extends BaseAssets {
     /*
      This function places new obstacles to the skier depending
      on the skier direction. It takes direction as a parameter
+     @param {number} skierDirection 
     */
     let shouldPlaceObstacle = _.random(1, 8);
     if (shouldPlaceObstacle !== 8) {
@@ -288,6 +298,10 @@ class Controls extends BaseAssets {
     /*
      This function is reposible generating random obstacles for
      the skier
+     @param {number} minX 
+     @param {number} maxX 
+     @param {number} minY 
+     @param {number} maxY 
     */
     let obstacleIndex = _.random(0, this.obstacleTypes.length - 1);
     let position = this.calculateOpenPosition(minX, maxX, minY, maxY);
@@ -302,6 +316,10 @@ class Controls extends BaseAssets {
     /*
      This function calculate open position to determin if a
      collision has been found or not. it return true of false
+     @param {number} minX 
+     @param {number} maxX 
+     @param {number} minY 
+     @param {number} maxY 
     */
     let x = _.random(minX, maxX);
     let y = _.random(minY, maxY);
