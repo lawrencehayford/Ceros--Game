@@ -72,11 +72,7 @@ the x and y cordinates. if skier direction is < 0 , this.getSkierAsset() will re
 
 
     getSkierAsset() {
-        /*
-        * This function draws skier image depending on the position
-        * the skier is. if the skier is moving right, the skierRight image
-        * will load up. if the skier crashes, the crash image will load up
-        */
+
         let skierAssetName;
         switch (this.skierDirection) {
         case 0:
@@ -101,3 +97,12 @@ the x and y cordinates. if skier direction is < 0 , this.getSkierAsset() will re
 
         return skierAssetName;
     }
+
+## Keys that is used to play the game
+
+- Down Arrow key to move down or start the game
+- Space bar for pause or resume game
+
+## How Scores are Calculated
+
+Scores are calculated when the skier is moving along the Y cordinates. Y cordinates are distances covered. The greater the Y cordinate distance covered.
