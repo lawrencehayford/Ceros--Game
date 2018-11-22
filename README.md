@@ -38,7 +38,7 @@ Run Test Using
 
     npm run test
 
-## What was done
+## New features added to the game
 
 - Fix left bug after a crush
 - Skier speed increases after sometime
