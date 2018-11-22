@@ -51,8 +51,8 @@ Run Test Using
 
 I identified that when the skier is moving, the direction is always > 0
 But when it moves to left and crashes, the direction changes to negative which is < 0
-Any time skier moves to diffrent position, its always get redraws Skier Asset by running getSkierAsset() in controls.js file;
-Skier Asset take in case from 0 to 5 but when the direction comming is less than 0 , it is not able to
+Any time skier moves to a different position, its always redraws Skier Asset by running getSkierAsset() in controls.js file;
+Skier Asset take in case from 0 to 5 but when the direction comming is < 0 , it is not able to
 get the equivalent case and therefore crashes the Game. The code below redraws the skier on the canvas depending on
 the x and y cordinates. if skier direction is < 0 , this.getSkierAsset() will return empty therefore making this.loadedAssets[skierAssetName] null. this means the width and height of the SkierImage below will be undefined
 
