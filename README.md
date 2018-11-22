@@ -51,11 +51,11 @@ Run Test Using
 - Game Background color changes when speeding up
 - Ability to Reset Game when you Loase
 
-## How i fxed the problem with game crashing when hit an Obstacle
+## How i fixed the problem with game crashing when hit an Obstacle
 
 I identified that when the skier is moving, the direction is always > 0
 But when it moves to left and crashes, the direction changes to negative which is < 0
-Any time skier moves to diffrent position, its always get redraws Skier Asset by running getSkierAsset();
+Any time skier moves to diffrent position, its always get redraws Skier Asset by running getSkierAsset() in controls.js file;
 Skier Asset take in case from 0 to 5 but when the direction comming is less than 0 , it is not able to
 get the equivalent case and therefore crashes the Game. The code below redraws the skier on the canvas depending on
 the x and y cordinates. if skier direction is < 0 , this.getSkierAsset() will return empty therefore making this.loadedAssets[skierAssetName] null. this means the width and height of the SkierImage below will be undefined
@@ -98,11 +98,47 @@ the x and y cordinates. if skier direction is < 0 , this.getSkierAsset() will re
         return skierAssetName;
     }
 
-## Keys that is used to play the game
+## Keys used to play the game
 
-- Down Arrow key to move down or start the game
+- Arrow Down - For moving down or start the game
+- Arrow Left - To move skier left
+- Arrow Right - To move skier right
 - Space bar for pause or resume game
 
 ## How Scores are Calculated
 
-Scores are calculated when the skier is moving along the Y cordinates. Y cordinates are distances covered. The greater the Y cordinate distance covered.
+Scores are calculated when the skier is moving along the Y cordinates. Y cordinates are distances covered. The greater the Y cordinate distance covered. The function below in the board.js file opens a modal and displays scores when game is over;
+
+    gameOver() {
+        /*
+        This function ends the game
+        */
+        $("#over").modal({
+        backdrop: "static",
+        keyboard: false
+        });
+        document.getElementById("score").innerHTML = Math.ceil(this.skierMapY);
+        throw "game over";
+    }
+
+## How Game is Paused And Resumed
+
+In the gameLoop function in the gameFacade.js file the following condition checks on every loop if game was paused.
+
+    this.paused === true ? this.pauseGame() : this.continueGame();
+
+The gamefacade Class extends the Board Class to pause and continue the game. Below is the actual functions in the board class
+which pauses and continues the game
+
+    pauseGame() {
+        /*
+        This function displays on screen that game was paused
+        */
+        document.getElementById("pause").innerHTML = this.pauseNotification;
+    }
+    continueGame() {
+        /*
+        This function removes game paused from screen
+        */
+        document.getElementById("pause").innerHTML = "";
+    }
