@@ -103,11 +103,11 @@ the x and y cordinates. if skier direction is < 0 , this.getSkierAsset() will re
 
 ## How Scores are Calculated
 
-Scores are calculated when the skier is moving along the Y cordinates. Y cordinates are distances covered. The greater the Y cordinate distance covered.
+Scores are calculated when the skier is moving along the Y cordinates. Y cordinates are distances covered. The greater the Y cordinate, the greater the distance covered.
 
 ## How Game is Paused And Resumed
 
-In the gameLoop function in the gameFacade.js file the following condition checks on every loop if game was paused.
+In the gameLoop function in the gameFacade.js file, the following condition checks on every loop if game was paused.
 
     this.paused === true ? this.pauseGame() : this.continueGame();
 
