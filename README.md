@@ -10,10 +10,6 @@ Visit http://skier.wizbizgh.com/
 
 ![](http://wizbizgh.com/skier_images/img2.png)
 
-## Moving Skier
-
-![](http://wizbizgh.com/skier_images/img3.png)
-
 ## Game Over
 
 ![](http://wizbizgh.com/skier_images/img4.png)
