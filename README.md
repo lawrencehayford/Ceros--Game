@@ -107,7 +107,17 @@ the x and y cordinates. if skier direction is < 0 , this.getSkierAsset() will re
 
 ## How Scores are Calculated
 
-Scores are calculated when the skier is moving along the Y cordinates. Y cordinates are distances covered. The greater the Y cordinate distance covered. The function below in the board.js file opens a modal and displays scores when game is over;
+Scores are calculated when the skier is moving along the Y cordinates. Y cordinates are distances covered. The greater the Y cordinate distance covered.
+
+## How Game is Paused And Resumed
+
+In the gameLoop function in the gameFacade.js file the following condition checks on every loop if game was paused.
+
+    this.paused === true ? this.pauseGame() : this.continueGame();
+
+## How Game is Ended
+
+If the skier has reached 3 crashes, the function below in the board.js file opens a modal and displays scores when game is over;
 
     gameOver() {
         /*
@@ -119,26 +129,4 @@ Scores are calculated when the skier is moving along the Y cordinates. Y cordina
         });
         document.getElementById("score").innerHTML = Math.ceil(this.skierMapY);
         throw "game over";
-    }
-
-## How Game is Paused And Resumed
-
-In the gameLoop function in the gameFacade.js file the following condition checks on every loop if game was paused.
-
-    this.paused === true ? this.pauseGame() : this.continueGame();
-
-The gamefacade Class extends the Board Class to pause and continue the game. Below is the actual functions in the board class
-which pauses and continues the game
-
-    pauseGame() {
-        /*
-        This function displays on screen that game was paused
-        */
-        document.getElementById("pause").innerHTML = this.pauseNotification;
-    }
-    continueGame() {
-        /*
-        This function removes game paused from screen
-        */
-        document.getElementById("pause").innerHTML = "";
     }
