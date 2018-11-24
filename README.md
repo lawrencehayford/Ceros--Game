@@ -116,9 +116,7 @@ In the gameLoop function in the gameFacade.js file, the following condition chec
 If the skier has reached 3 crashes, the function below in the board.js file opens a modal and displays scores when game is over;
 
     gameOver() {
-        /*
-        This function ends the game
-        */
+
         $("#over").modal({
         backdrop: "static",
         keyboard: false
