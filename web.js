@@ -15,7 +15,7 @@ app.use("/dist", express.static(__dirname + "/dist"));
 
 // test route to make sure everything is working (accessed at GET http://localhost:9090/)
 router.get("/", function(req, res) {
-  res.sendFile(path.join(__dirname + "/index.html"));
+  res.sendFile(path.join(__dirname + "/game.html"));
 });
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /
