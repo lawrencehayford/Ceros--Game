@@ -1,10 +1,9 @@
 const BaseAssets = require("./assets");
-const _ = require("lodash");
 
 class Controls extends BaseAssets {
   moveSkier() {
     /*
-     * This function is reposible for the x and y axis posiction of
+     * This function is responsible for the x and y axis position of
      * the skier. It actually moves the skier on the canvas
      */
     switch (this.skierDirection) {
@@ -102,7 +101,7 @@ class Controls extends BaseAssets {
       bottom: this.skierMapY + skierImage.height + this.gameHeight / 2
     };
 
-    let collision = _.find(this.obstacles, obstacle => {
+    let collision = this.obstacles.find(obstacle => {
       let obstacleImage = this.loadedAssets[obstacle.type];
       let obstacleRect = {
         left: obstacle.x,
@@ -177,10 +176,10 @@ class Controls extends BaseAssets {
   drawObstacles() {
     /*
      This function is reposible for drawing the obstacles which the
-     skier will encounter. Thes obstacles are trees, rocks, etc
+     skier will encounter. These obstacles are trees, rocks, etc
     */
     let newObstacles = [];
-    _.each(this.obstacles, obstacle => {
+    this.obstacles.map(obstacle => {
       let obstacleImage = this.loadedAssets[obstacle.type];
       let x = obstacle.x - this.skierMapX - obstacleImage.width / 2;
       let y = obstacle.y - this.skierMapY - obstacleImage.height / 2;
@@ -211,7 +210,7 @@ class Controls extends BaseAssets {
      Obstacles in the game
     */
     let numberObstacles = Math.ceil(
-      _.random(5, 7) * (this.gameWidth / 800) * (this.gameHeight / 500)
+      Math.random(5, 7) * (this.gameWidth / 800) * (this.gameHeight / 500)
     );
 
     let minX = -50;
@@ -223,7 +222,7 @@ class Controls extends BaseAssets {
       this.placeRandomObstacle(minX, maxX, minY, maxY);
     }
 
-    this.obstacles = _.sortBy(this.obstacles, obstacle => {
+    this.obstacles = this.obstacles.sort(obstacle => {
       let obstacleImage = this.loadedAssets[obstacle.type];
       return obstacle.y + obstacleImage.height;
     });
@@ -235,7 +234,7 @@ class Controls extends BaseAssets {
      on the skier direction. It takes direction as a parameter
      @param {number} skierDirection 
     */
-    let shouldPlaceObstacle = _.random(1, 8);
+    let shouldPlaceObstacle = this.randomInt(1, 8);
     if (shouldPlaceObstacle !== 8) {
       return;
     }
@@ -296,14 +295,14 @@ class Controls extends BaseAssets {
 
   placeRandomObstacle(minX, maxX, minY, maxY) {
     /*
-     This function is reposible generating random obstacles for
+     This function is reponsible for generating random obstacles for
      the skier
      @param {number} minX 
      @param {number} maxX 
      @param {number} minY 
      @param {number} maxY 
     */
-    let obstacleIndex = _.random(0, this.obstacleTypes.length - 1);
+    let obstacleIndex = this.randomInt(0, this.obstacleTypes.length - 1);
     let position = this.calculateOpenPosition(minX, maxX, minY, maxY);
     this.obstacles.push({
       type: this.obstacleTypes[obstacleIndex],
@@ -314,16 +313,16 @@ class Controls extends BaseAssets {
 
   calculateOpenPosition(minX, maxX, minY, maxY) {
     /*
-     This function calculate open position to determin if a
-     collision has been found or not. it return true of false
+     This function calculate open position to determine if a
+     collision has been found or not. it return true or false
      @param {number} minX 
      @param {number} maxX 
      @param {number} minY 
      @param {number} maxY 
     */
-    let x = _.random(minX, maxX);
-    let y = _.random(minY, maxY);
-    let foundCollision = _.find(this.obstacles, obstacle => {
+    let x = this.randomInt(minX, maxX);
+    let y = this.randomInt(minY, maxY);
+    let foundCollision = this.obstacles.find(obstacle => {
       return (
         x > obstacle.x - 50 &&
         x < obstacle.x + 50 &&
@@ -340,6 +339,14 @@ class Controls extends BaseAssets {
         y: y
       };
     }
+  }
+  /*
+     This function generate random integer value 
+     @param {number} min 
+     @param {number} max 
+    */
+  randomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 }
 module.exports = Controls;

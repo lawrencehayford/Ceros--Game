@@ -10,7 +10,7 @@ export default class Gamefacade extends GameBoard {
 
   gameLoop() {
     /*
-     This function is recurisive and loops its self throughout
+     This function is recursive and loops its self throughout
      the entire game. it controls the daskboard,skier and even checks
      if skier crashed
     */

@@ -15,10 +15,10 @@
     "node": "8.4.0"
   },
   "dependencies": {
+    "express": "^4.16.4",
     "extends-classes": "^1.0.5",
     "http-server": "^0.10.0",
     "jquery": "^3.3.1",
-    "lodash": "^4.17.11",
     "unminified-webpack-plugin": "^2.0.0",
     "webpack-dev-server": "^3.1.10"
   },
