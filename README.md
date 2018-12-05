@@ -45,16 +45,16 @@ Run Test Using
 - A dashboard interface to show distance covered, Speed and Number of Hits
 - Able to Pause and Resume of game
 - Game Background color changes when speeding up
-- Ability to Reset Game when you Loase
+- Ability to Reset Game when you lose
 
-## How i fixed the problem with game crashing when hit an Obstacle
+## How i fixed the problem with the game crashing when it hit an Obstacle
 
 I identified that when the skier is moving, the direction is always > 0
 But when it moves to left and crashes, the direction changes to negative which is < 0
 Any time skier moves to a different position, its always redraws Skier Asset by running getSkierAsset() in controls.js file;
 Skier Asset take in case from 0 to 5 but when the direction comming is < 0 , it is not able to
-get the equivalent case and therefore crashes the Game. The code below redraws the skier on the canvas depending on
-the x and y cordinates. if skier direction is < 0 , this.getSkierAsset() will return empty therefore making this.loadedAssets[skierAssetName] null. this means the width and height of the SkierImage below will be undefined
+get the equivalent switch case and therefore crashes the Game. The code below redraws the skier on the canvas depending on
+the x and y cordinates. if skier direction is < 0 , this.getSkierAsset() will return empty therefore making this.loadedAssets[skierAssetName] null. This means the width and height of the SkierImage below will be undefined
 
     drawSkier() {
 
@@ -96,10 +96,10 @@ the x and y cordinates. if skier direction is < 0 , this.getSkierAsset() will re
 
 ## Keys used to play the game
 
-- Arrow Down - For moving down or start the game
+- Arrow Down - For moving down or starting the game
 - Arrow Left - To move skier left
 - Arrow Right - To move skier right
-- Space bar for pause or resume game
+- Space bar - For pausing or resuming the game
 
 ## How Scores are Calculated
 
