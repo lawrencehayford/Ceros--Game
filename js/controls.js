@@ -125,6 +125,7 @@ class Controls extends BaseAssets {
      Key arrows such as Left, Right, Up , Down and Space Bar to Pause the Game
     */
     jquery.keydown(event => {
+      if (this.initialStart === false) return;
       switch (event.which) {
         case 37: // left
           if (this.skierDirection === 1) {
@@ -169,7 +170,8 @@ class Controls extends BaseAssets {
       setTimeout(() => {
         this.skierDirection = 3;
         $("#loading").html("");
-      }, 3000);
+        this.initialStart = true;
+      }, 2000);
     });
   }
 

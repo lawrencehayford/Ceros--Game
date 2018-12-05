@@ -39,7 +39,6 @@ class Board extends classes(BaseAssets, Controls, Canvas) {
     */
     document.getElementById("pause").innerHTML = "";
   }
-
   checkTotalHits() {
     /*
      This function checks total skier hits

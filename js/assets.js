@@ -32,6 +32,7 @@ class Assets {
     this.hits = 0;
     this.totalNumberOfHits = 3;
     this.paused = false;
+    this.initialStart = false;
     this.pauseNotification = "<h2 class='whiteColor'>Game Is Paused</h2>";
     this.speedColor = "#111619";
     this.canvas;

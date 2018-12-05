@@ -120,6 +120,7 @@ class Assets {
     this.hits = 0;
     this.totalNumberOfHits = 3;
     this.paused = false;
+    this.initialStart = false;
     this.pauseNotification = "<h2 class='whiteColor'>Game Is Paused</h2>";
     this.speedColor = "#111619";
     this.canvas;
@@ -10118,7 +10119,6 @@ class Board extends classes(BaseAssets, Controls, Canvas) {
     */
     document.getElementById("pause").innerHTML = "";
   }
-
   checkTotalHits() {
     /*
      This function checks total skier hits
@@ -10527,6 +10527,7 @@ class Controls extends BaseAssets {
      Key arrows such as Left, Right, Up , Down and Space Bar to Pause the Game
     */
     jquery.keydown(event => {
+      if (this.initialStart === false) return;
       switch (event.which) {
         case 37:
           // left
@@ -10576,7 +10577,8 @@ class Controls extends BaseAssets {
       setTimeout(() => {
         this.skierDirection = 3;
         $("#loading").html("");
-      }, 3000);
+        this.initialStart = true;
+      }, 2000);
     });
   }
 
@@ -10733,8 +10735,8 @@ class Canvas extends BaseAssets {
     /*
      * This function prepares the width and height of Canvas.
      */
-    this.gameWidth = window.innerWidth;
-    this.gameHeight = window.innerHeight;
+    this.gameWidth = window.innerWidth - 50;
+    this.gameHeight = window.innerHeight - 300;
     this.canvas = $("<canvas ></canvas>").attr("width", this.gameWidth * window.devicePixelRatio).attr("height", this.gameHeight * window.devicePixelRatio).css({ width: this.gameWidth + "px", height: this.gameHeight + "px" });
     $("body").append(this.canvas);
     this.ctx = this.canvas[0].getContext("2d");

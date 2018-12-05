@@ -6,8 +6,8 @@ class Canvas extends BaseAssets {
     /*
      * This function prepares the width and height of Canvas.
      */
-    this.gameWidth = window.innerWidth;
-    this.gameHeight = window.innerHeight;
+    this.gameWidth = window.innerWidth - 50;
+    this.gameHeight = window.innerHeight - 300;
     this.canvas = $("<canvas ></canvas>")
       .attr("width", this.gameWidth * window.devicePixelRatio)
       .attr("height", this.gameHeight * window.devicePixelRatio)
