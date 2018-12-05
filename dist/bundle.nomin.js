@@ -10111,13 +10111,13 @@ class Board extends classes(BaseAssets, Controls, Canvas) {
     /*
      This function displays on screen that game was paused
     */
-    document.getElementById("pause").innerHTML = this.pauseNotification;
+    this.displayMessage(this.pauseNotification);
   }
   continueGame() {
     /*
      This function removes game paused from screen
     */
-    document.getElementById("pause").innerHTML = "";
+    this.displayMessage("");
   }
   checkTotalHits() {
     /*
@@ -10135,6 +10135,14 @@ class Board extends classes(BaseAssets, Controls, Canvas) {
     });
     document.getElementById("score").innerHTML = Math.ceil(this.skierMapY);
     throw "game over";
+  }
+
+  displayMessage(message) {
+    /*
+     This function displays notification to the screen
+     @param {string} message 
+    */
+    document.getElementById("pause").innerHTML = message;
   }
 }
 
