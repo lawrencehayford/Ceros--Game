@@ -40,7 +40,7 @@ Run Test Using
 
 ## New features added to the game
 
-- Fix left bug after a crush
+- Fixed left bug after a crush
 - Skier speed increases after sometime
 - A dashboard interface to show distance covered, Speed and Number of Hits
 - Able to Pause and Resume of game
