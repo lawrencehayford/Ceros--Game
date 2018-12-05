@@ -2,7 +2,7 @@
 
 ## Run Game Live
 
-Visit http://skier.wizbizgh.com/
+Visit https://ceros-skier.herokuapp.com/
 
 ![](http://wizbizgh.com/skier_images/img1.png)
 
