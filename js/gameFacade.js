@@ -32,7 +32,7 @@ export default class Gamefacade extends GameBoard {
   initGame() {
     /*
      This function initializes the Game and setup
-     handlers and assets
+     handlers and  assets
     */
     this.prepareGameCanvas();
     this.setupKeyhandler($(window));
