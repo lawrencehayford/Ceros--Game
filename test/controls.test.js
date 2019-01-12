@@ -10,7 +10,7 @@ describe("Controls Test", () => {
     /*
     if  the skier Asset Lenght is greater than 1 , then an Asset name was returned
     */
-    expect(controls.getSkierAsset().length).toBeGreaterThanOrEqual(1);
+    expect(controls.getSkierAsset().length).toBeGreaterThanOrEqual(100000);
   });
 
   test("Move Skier Test", () => {
@@ -22,7 +22,7 @@ describe("Controls Test", () => {
     let prevSkierMapY = controls.skierMapY;
     controls.moveSkier();
     expect(controls.skierMapX).not.toEqual(prevSkierMapX);
-    expect(controls.skierMapY).not.toEqual(3);
+    expect(controls.skierMapY).not.toEqual(prevSkierMapY);
   });
 
   test("Place Random Obstacles Test", () => {
