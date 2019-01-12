@@ -10,7 +10,7 @@ describe("Controls Test", () => {
     /*
     if  the skier Asset Lenght is greater than 1 , then an Asset name was returned
     */
-    expect(controls.getSkierAsset().length).toBeGreaterThanOrEqual(100000);
+    expect(controls.getSkierAsset().length).toBeGreaterThanOrEqual(1);
   });
 
   test("Move Skier Test", () => {
