@@ -22,7 +22,7 @@ describe("Controls Test", () => {
     let prevSkierMapY = controls.skierMapY;
     controls.moveSkier();
     expect(controls.skierMapX).not.toEqual(prevSkierMapX);
-    expect(controls.skierMapY).not.toEqual(prevSkierMapY);
+    expect(controls.skierMapY).not.toEqual(3);
   });
 
   test("Place Random Obstacles Test", () => {
